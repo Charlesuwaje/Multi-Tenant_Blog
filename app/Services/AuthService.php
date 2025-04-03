@@ -19,17 +19,6 @@ class AuthService
         return $user;
     }
 
-    // public function login(array $data)
-    // {
-    //     $user = User::where('email', $data['email'])->first();
-
-    //     if (!$user || !Hash::check($data['password'], $user->password)) {
-    //         throw ValidationException::withMessages(['email' => ['Invalid credentials.']]);
-    //     }
-
-    //     return $user->createToken('auth_token')->plainTextToken;
-    // }
-
     public function login(array $data)
     {
         $user = User::where('email', $data['email'])->first();
