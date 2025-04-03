@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Services\AuthService;
 use Illuminate\Http\Request;
+use App\Services\AuthService;
+use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
@@ -21,12 +23,19 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered, pending admin approval'], 201);
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
 
         $token = $this->authService->login($validatedData);
-
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['error' => 'Authentication failed.'], 401);
+        }
+        return response()->json([
+            'access_token' => $token,
+            'data' => new UserResource($user),
+            'token_type' => 'Bearer'
+        ]);
     }
 }

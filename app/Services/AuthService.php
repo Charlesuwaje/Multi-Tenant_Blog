@@ -31,6 +31,10 @@ class AuthService
             throw ValidationException::withMessages(['email' => ['Your account is pending approval.']]);
         }
 
-        return $user->createToken('auth_token')->plainTextToken;
+        // return $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
+        auth()->login($user);
+
+        return $token;
     }
 }
