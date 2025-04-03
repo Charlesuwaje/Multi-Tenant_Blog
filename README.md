@@ -65,8 +65,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Little description of the application
 📝 Multi-Tenant Blog System
 A multi-tenant blog system where admins approve users as tenants, who can then manage blog posts via a web interface and API.
+
 
 📌 Features
 User registration (Pending admin approval)
