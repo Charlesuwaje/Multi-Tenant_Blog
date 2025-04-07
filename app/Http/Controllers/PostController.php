@@ -36,9 +36,16 @@ class PostController extends Controller
         return response()->json($this->postService->updatePost($id, $validateData));
     }
 
-    public function destroy($id)
+    // public function destroy($id)
+    // {
+    //     $this->postService->deletePost($id);
+    //     return response()->json(['message' => 'Post deleted']);
+    // }
+
+     public function destroy($id)
     {
         $this->postService->deletePost($id);
-        return response()->json(['message' => 'Post deleted']);
+
+        return redirect()->route('admin.posts')->with('success', 'Post deleted successfully.');
     }
 }
